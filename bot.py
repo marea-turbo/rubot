@@ -34,10 +34,10 @@ def help(message):
     info = """
     Bot criado por:
     Anthon @FanDeMorbius
-    e 
-    Nicolas @Mipsquadriciclo
+    & 
+    Nicolas @MipsQuadriciclo.
 
-    Inspirado no @quibebot
+    Inspirado no @quibebot.
     """
 
     bot.send_message(message.chat.id, info)
