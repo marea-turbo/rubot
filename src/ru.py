@@ -1,12 +1,21 @@
 import src.pdf as pdf
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from re import search
 
 
 def get_menu(date: datetime) -> str:
     url = pdf.build_pdf_url(date)
-    # menu = ''.join()
-    return url
+    tomorrow_date = (date+timedelta(days=1))
+    today, tomorrow = date.strftime('%d/ %m/ %Y'), tomorrow_date.strftime('%d/ %m/ %Y')
+
+    # if tomorrow is monday (0)
+    if not tomorrow_date.weekday():
+        tomorrow = "\n\n"
+
+    t = pdf.get_pdf(url)
+    menu = t[t.find(today)-len(today)-1:t.rfind(tomorrow)-len(tomorrow)-1]
+    return menu
 
 
 def get_today() -> str:

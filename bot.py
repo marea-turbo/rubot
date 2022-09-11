@@ -46,4 +46,4 @@ def help(message):
 
 #Recebe as mensagens
 # bot.polling()
-print(ru.get_tomorrow())
+print(ru.get_today())
