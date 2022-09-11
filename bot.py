@@ -31,10 +31,12 @@ def rubot_unsubscribe(message):
     auto_message.delete_user(message.from_user)
     bot.send_message(message.from_user.id, "Vc deixou de seguir, para receber todos os dias de /subscribe novamente")
 
+#alterar isso pra uma rotina toda manhã enviar mensagem pra geral no json
 @bot.message_handler(commands=["teste"])
 def rubot_today(message):
     targets = auto_message.user_ids()
     for id in targets:
+        print(id)
         bot.send_message(id, "testando")
 
 # Envia o help para todas as mensagens NAO comandos so funfa no pv
