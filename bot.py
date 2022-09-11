@@ -1,4 +1,5 @@
 import telebot
+import src.ru as ru
 
 # Chave do bot criada no BotFather -Alterar depois para a principal
 API_KEY = "5475254576:AAHixEJiFnDmHPgg5L4jaGn7gcpl3pU6bw8"
@@ -44,4 +45,5 @@ def help(message):
     bot.reply_to(message, options)
 
 #Recebe as mensagens
-bot.polling()
+# bot.polling()
+print(ru.get_tomorrow())
