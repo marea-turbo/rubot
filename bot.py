@@ -1,3 +1,4 @@
+from email import message
 import telebot
 from auto_message import AutoMessage
 from datetime import datetime
@@ -8,16 +9,16 @@ API_KEY = "5475254576:AAHixEJiFnDmHPgg5L4jaGn7gcpl3pU6bw8"
 bot = telebot.TeleBot(API_KEY)
 auto_message = AutoMessage()
 
-# Alterar menssages depois que decidirmos o nome do bot
+
 @bot.message_handler(commands=["rubot"])
 def rubot(message):
     bot.send_message(message.chat.id, "cardapio de HOJE colocar string que vem do EXTRATOR")
 
-@bot.message_handler(commands=["rubot_amanha"])
+@bot.message_handler(commands=["amanha"])
 def rubot_amanha(message):
     bot.send_message(message.chat.id, "cardapio de AMANHA colocar string que vem do EXTRATOR")
 
-@bot.message_handler(commands=["rubot_semana"])
+@bot.message_handler(commands=["semana"])
 def rubot_semana(message):
     bot.send_message(message.chat.id, "cardapio da SEMANA colocar string que vem do EXTRATOR")
 
@@ -39,22 +40,8 @@ def rubot_today(message):
         print(id)
         bot.send_message(id, "testando")
 
-# Envia o help para todas as mensagens NAO comandos so funfa no pv
-def verify(message):
-    return True
-
-@bot.message_handler(func=verify)
-def help(message):
-    options = """
-    Escolha uma opção para continuar (Selecione um item):
-    /help Para opções
-    /rubot Para cardapio de hoje
-    /rubot_amanha Para cardapio de amanhã
-    /rubot_semana Para cardapio da semana
-
-    Vc pode dar um /subscribe para receber o cardapio de hoje todos os dias pela manhã.
-    """
-
+@bot.message_handler(commands=["about"])
+def info(message):
     info = """
     Bot criado por:
     Anthon @FanDeMorbius
@@ -63,9 +50,23 @@ def help(message):
 
     Inspirado no @quibebot.
     """
-
     bot.send_message(message.chat.id, info)
-    bot.reply_to(message, options)
+
+@bot.message_handler(commands=["start", "help"])
+def help(message):
+    options = """
+    Eu sou o BOT que te mostra o cardapio do RU!!
+
+    Escolha uma opção para continuar (Selecione um item):
+    /help Para opções
+    /rubot Para cardapio de hoje
+    /amanha Para cardapio de amanhã
+    /semana Para cardapio da semana
+    /about Para saber sobre o bot
+
+    Vc pode dar um /subscribe para receber o cardapio de hoje todos os dias pela manhã.
+    """
+    bot.send_message(message.chat.id, options)
 
 
 #now = datetime.now(timezone('America/Sao_Paulo'))
