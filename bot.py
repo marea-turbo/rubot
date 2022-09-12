@@ -1,14 +1,15 @@
 from email import message
 import telebot
-from auto_message import AutoMessage
-from datetime import datetime
-from pytz import timezone
+from src.auto_message import AutoMessage
+from datetime import datetime, timedelta, timezone
+
 
 # Chave do bot criada no BotFather -Alterar depois para a principal
 API_KEY = "5475254576:AAHixEJiFnDmHPgg5L4jaGn7gcpl3pU6bw8"
 bot = telebot.TeleBot(API_KEY)
 auto_message = AutoMessage()
 
+hour_to_message = datetime.time(8, 0, 0)
 
 @bot.message_handler(commands=["rubot"])
 def rubot(message):
@@ -33,13 +34,15 @@ def rubot_unsubscribe(message):
     bot.send_message(message.from_user.id, "Vc deixou de seguir, para receber todos os dias de /subscribe novamente")
 
 #alterar isso pra uma rotina toda manhã enviar mensagem pra geral no json
-@bot.message_handler(commands=["teste"])
-def rubot_today(message):
-    targets = auto_message.user_ids()
-    for id in targets:
-        print(id)
-        bot.send_message(id, "testando")
+# @bot.message_handler(func=send_on_day)
+# def rubot_today(message):
+#     targets = auto_message.user_ids()
+#     for id in targets:
+#         print(id)
+#         bot.send_message(id, "testando")
 
+# def send_on_day(message):
+    
 @bot.message_handler(commands=["about"])
 def info(message):
     info = """
@@ -49,6 +52,8 @@ def info(message):
     Nicolas @MipsQuadriciclo.
 
     Inspirado no @quibebot.
+
+    Codigo: https://github.com/marea-turbo/rubot
     """
     bot.send_message(message.chat.id, info)
 
