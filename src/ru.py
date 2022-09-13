@@ -1,4 +1,4 @@
-import src.pdf as pdf
+import src.wrappers.pdf as pdf
 
 from datetime import datetime, timedelta, timezone
 from re import search

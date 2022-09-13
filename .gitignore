@@ -1,5 +1,6 @@
 .idea
 .vscode
+.vscode-oss
 __pycache__
 .venv
 

@@ -1,5 +1,7 @@
 import telebot
 import src.ru as ru
+import src.wrappers.html as h
+from pprint import pprint
 
 # Chave do bot criada no BotFather -Alterar depois para a principal
 API_KEY = "5475254576:AAHixEJiFnDmHPgg5L4jaGn7gcpl3pU6bw8"
@@ -46,4 +48,4 @@ def help(message):
 
 #Recebe as mensagens
 # bot.polling()
-print(ru.get_today())
+pprint(h.get_menu_table())
