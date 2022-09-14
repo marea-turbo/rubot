@@ -1,7 +1,5 @@
-import telebot
 import src.ru as ru
-import src.wrappers.html as h
-from pprint import pprint
+import telebot
 
 
 API_KEY = "5475254576:AAHixEJiFnDmHPgg5L4jaGn7gcpl3pU6bw8"
@@ -10,15 +8,15 @@ bot = telebot.TeleBot(API_KEY)
 
 @bot.message_handler(commands=["rubot"])
 def rubot(message):
-    bot.send_message(message.chat.id, "HOJE")
+    bot.send_message(message.chat.id, ru.get_today())
 
 @bot.message_handler(commands=["amanha"])
 def rubot_amanha(message):
-    bot.send_message(message.chat.id, "AMANHA")
+    bot.send_message(message.chat.id, ru.get_tomorrow())
 
 @bot.message_handler(commands=["semana"])
 def rubot_semana(message):
-    bot.send_message(message.chat.id, "SEMANA")
+    bot.send_message(message.chat.id, ru.get_week())
 
 @bot.message_handler(commands=["about"])
 def info(message):
