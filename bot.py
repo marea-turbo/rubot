@@ -32,6 +32,7 @@ def info(message):
     """
     bot.send_message(message.chat.id, info)
 
+
 @bot.message_handler(commands=["start", "help"])
 def help(message):
     options = """
