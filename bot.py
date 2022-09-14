@@ -2,7 +2,7 @@ import src.ru as ru
 import telebot
 
 
-API_KEY = "5475254576:AAHixEJiFnDmHPgg5L4jaGn7gcpl3pU6bw8"
+API_KEY = "5694477146:AAFa13DyxjG2CPfWl0uhyfrAiAmdlSbL8og"
 bot = telebot.TeleBot(API_KEY)
 
 
