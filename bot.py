@@ -8,15 +8,15 @@ bot = telebot.TeleBot(API_KEY)
 
 @bot.message_handler(commands=["rubot"])
 def rubot(message):
-    bot.send_message(message.chat.id, ru.get_today())
+    bot.send_message(message.chat.id, ru.get_today(), parse_mode='Markdown')
 
 @bot.message_handler(commands=["amanha"])
 def rubot_amanha(message):
-    bot.send_message(message.chat.id, ru.get_tomorrow())
+    bot.send_message(message.chat.id, ru.get_tomorrow(), parse_mode='Markdown')
 
 @bot.message_handler(commands=["semana"])
 def rubot_semana(message):
-    bot.send_message(message.chat.id, ru.get_week())
+    bot.send_message(message.chat.id, ru.get_week(), parse_mode='Markdown')
 
 @bot.message_handler(commands=["about"])
 def info(message):

@@ -15,7 +15,7 @@ def format_menu(menu_data: dict, day: int) -> str:
         ], ...
     """
 
-    menu = "**" + menu_data[day][0] + '**\n'
+    menu = "*" + menu_data[day][0] + '*\n'
     for content in menu_data[day][1:]:
         menu += "• " + content + '\n'
 
