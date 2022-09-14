@@ -73,8 +73,5 @@ def help(message):
     """
     bot.send_message(message.chat.id, options)
 
-
-#now = datetime.now(timezone('America/Sao_Paulo'))
-
 #Recebe as mensagens
 bot.polling()
