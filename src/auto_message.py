@@ -35,4 +35,3 @@ class AutoMessage:
         for user in self.database:
             aux.append(user)
         return aux
-        
