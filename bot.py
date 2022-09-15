@@ -38,7 +38,7 @@ def help(message):
 
     Escolha uma opção para continuar (Selecione um item):
     /help Para opções
-    /ruhbot Para cardapio de hoje
+    /ruh Para cardapio de hoje
     /amanha Para cardapio de amanhã
     /semana Para cardapio da semana
     /about Para saber sobre o bot
