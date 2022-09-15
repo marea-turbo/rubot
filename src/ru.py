@@ -2,6 +2,7 @@ import src.wrappers.pdf as pdf
 import src.wrappers.html as html
 
 from datetime import datetime, timedelta
+from pytz import timezone
 
 
 week_menu = {}
@@ -44,14 +45,14 @@ def get_menu(date: datetime) -> str:
 
 
 def get_today() -> str:
-    return get_menu(datetime.now())
+    return get_menu(datetime.now(timezone("Brazil/East")))
 
 def get_tomorrow() -> str:
-    return get_menu(datetime.now()+timedelta(days=1))
+    return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=1))
 
 def get_week() -> str:
     week = ""
-    now = datetime.now()
+    now = datetime.now(timezone("Brazil/East"))
     monday = now - timedelta(days=now.weekday())
 
     for i in range(7):
