@@ -1,9 +1,8 @@
 import src.ru as ru
 import telebot
-from decouple import config
+import os
 
-
-API_KEY = config("TOKEN")
+API_KEY = os.environ.get("TOKEN")
 bot = telebot.TeleBot(API_KEY)
 
 @bot.message_handler(commands=["ruh"])
