@@ -1,13 +1,11 @@
 import src.ru as ru
 import telebot
 
-
-API_KEY = "5694477146:AAFa13DyxjG2CPfWl0uhyfrAiAmdlSbL8og"
+API_KEY = config("TOKEN")
 bot = telebot.TeleBot(API_KEY)
 
-
-@bot.message_handler(commands=["ruhbot"])
-def ruhbot(message):
+@bot.message_handler(commands=["ruh"])
+def ruh(message):
     bot.send_message(message.chat.id, ru.get_today(), parse_mode='Markdown')
 
 @bot.message_handler(commands=["amanha"])

@@ -3,6 +3,7 @@
 .vscode-oss
 __pycache__
 .venv
+.env
 
 Pipfile
 Pipfile.lock
