@@ -1,7 +1,11 @@
 import src.ru as ru
 import telebot
+from dotenv import load_dotenv
+import os
 
-API_KEY = config("TOKEN")
+load_dotenv()
+
+API_KEY = os.getenv("TOKEN")
 bot = telebot.TeleBot(API_KEY)
 
 @bot.message_handler(commands=["ruh"])
