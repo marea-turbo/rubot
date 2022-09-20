@@ -2,8 +2,8 @@ import src.ru as ru
 import telebot
 import os
 
-API_KEY = os.environ.get("TOKEN")
-bot = telebot.TeleBot(API_KEY)
+# API_KEY = os.environ.get("TOKEN")
+bot = telebot.TeleBot("5792800377:AAHTnqZRHyO5k8oN5kXVUTAr0ZXJrBP_6ho")
 
 @bot.message_handler(commands=["ruh"])
 def ruh(message):
