@@ -6,36 +6,32 @@ import re
 context = "https://ru.ufsc.br/ru/"
 
 
-def get_table_dict() -> str:
+def get_table_dict() -> dict:
     response = requests.get(context)
     assert response.status_code < 300
 
     soup = bs4.BeautifulSoup(response.content, "html.parser")
     table = soup.find("table")
+    text = table.text
 
     menu_data = {}
-    current_key = None
+    weekday_regex = re.compile(r"((?:[A-ZÇ]+-)FEIRA)|SÁBADO|DOMINGO")
 
-    for row in table.find_all('tr')[1:]:
-        day_raw = row.text.replace("II", "").split()
+    itext = text
+    for i in range(7):
+        weekday = weekday_regex.search(itext)
+        next_weekday = weekday_regex.search(itext, pos=weekday.end()+1)
 
-        for word in day_raw:
-            if word.isupper():
-                menu_data[word] = [word]
-                current_key = word
+        try: 
+            raw_day_menu = itext[weekday.end()+1:next_weekday.start()-1]
+        except AttributeError:
+            raw_day_menu = itext[weekday.end()+1:]
 
-            elif word[:2].isdigit():
-                menu_data[int(word[:2])] = menu_data.pop(current_key)
-                current_key = int(word[:2])
-
-            elif word.endswith(':'):
-                start_section = day_raw.index(word)
-                section = []
-
-                for w in day_raw[start_section:][1:]:
-                    if w.endswith(':'): break
-                    section.append(w)
-
-                menu_data[current_key] += re.findall('[a-zA-Z][^A-Z]*', " ".join(section).replace('/', ''))
+        day = re.search(r"^\d{2}", raw_day_menu)
+        removed_date = re.sub(r".*\d.*", "",  raw_day_menu).strip()
+        removed_doublepoints = re.sub(r".*: ", "", removed_date)
+        menu_data[int(day.group())] = (weekday.group()+'\n' + removed_doublepoints).split('\n')
+        
+        itext = itext[weekday.end()+len(raw_day_menu)+1:]
 
     return menu_data

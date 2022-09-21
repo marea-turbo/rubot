@@ -8,7 +8,7 @@ from pytz import timezone
 week_menu = {}
 
 
-def format_menu(menu_data: dict, day: int) -> str:
+def format_menu(day_menu: list) -> str:
     """ 
         ### formato do menu_data:
         dia: [
@@ -16,8 +16,8 @@ def format_menu(menu_data: dict, day: int) -> str:
         ], ...
     """
 
-    menu = "*" + menu_data[day][0] + '*\n'
-    for content in menu_data[day][1:]:
+    menu = "*" + day_menu[0] + '*\n'
+    for content in day_menu[1:]:
         menu += "• " + content + '\n'
 
     return menu[:-1]
@@ -26,10 +26,10 @@ def format_menu(menu_data: dict, day: int) -> str:
 def get_menu(date: datetime) -> str:
     global week_menu
 
-    if date.day in week_menu.keys(): return format_menu(week_menu, date.day)
+    if date.day in week_menu.keys(): return format_menu(week_menu[date.day])
     else: week_menu = html.get_table_dict()
 
-    return format_menu(week_menu, date.day)
+    return format_menu(week_menu[date.day])
 
 
 def get_today() -> str:
