@@ -8,16 +8,16 @@ from pytz import timezone
 week_menu = {}
 
 
-def format_menu(menu_data: dict, day: int) -> str:
+def format_menu(day_menu: list) -> str:
     """ 
         ### formato do menu_data:
         dia: [
-            quibe, meu pau, pepino, cebola, ...
+            DIA-DA-SEMANA, quibe, meu pau, pepino, cebola, ...
         ], ...
     """
 
-    menu = "*" + menu_data[day][0] + '*\n'
-    for content in menu_data[day][1:]:
+    menu = "*" + day_menu[0] + '*\n'
+    for content in day_menu[1:]:
         menu += "• " + content + '\n'
 
     return menu[:-1]
@@ -26,22 +26,10 @@ def format_menu(menu_data: dict, day: int) -> str:
 def get_menu(date: datetime) -> str:
     global week_menu
 
-    if date.day in week_menu.keys(): return format_menu(week_menu, date.day)
+    if date.day in week_menu.keys(): return format_menu(week_menu[date.day])
+    else: week_menu = html.get_table_dict()
 
-    # url = pdf.build_pdf_url(date)
-    # tomorrow_date = (date+timedelta(days=1))
-    # today, tomorrow = date.strftime('%d/ %m/ %Y'), tomorrow_date.strftime('%d/ %m/ %Y')
-
-    # # if tomorrow is monday (0)
-    # if not tomorrow_date.weekday():
-    #     tomorrow = "\n\n"
-
-    # t = pdf.get_pdf(url)
-    # menu = t[t.find(today)-len(today)-1:t.rfind(tomorrow)-len(tomorrow)-1]
-    # return menu
-
-    week_menu = html.get_menu_table(date.day)
-    return format_menu(week_menu, date.day)
+    return format_menu(week_menu[date.day])
 
 
 def get_today() -> str:
@@ -50,6 +38,7 @@ def get_today() -> str:
 def get_tomorrow() -> str:
     return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=1))
 
+# debug method
 def get_week() -> str:
     week = ""
     now = datetime.now(timezone("Brazil/East"))

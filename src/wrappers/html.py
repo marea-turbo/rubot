@@ -1,43 +1,37 @@
 import requests
 import bs4
+import re
 
 
 context = "https://ru.ufsc.br/ru/"
 
 
-def get_menu_table(day: int) -> dict:
+def get_table_dict() -> dict:
     response = requests.get(context)
     assert response.status_code < 300
 
     soup = bs4.BeautifulSoup(response.content, "html.parser")
-    menu_to_parse = soup.find("table")
-    
+    table = soup.find("table")
+    text = table.text
+
     menu_data = {}
+    weekday_regex = re.compile(r"((?:[A-ZÇ]+-)FEIRA)|SÁBADO|DOMINGO")
 
-    current_key = None
-    # current_sub_key = None
+    itext = text
+    for i in range(7):
+        weekday = weekday_regex.search(itext)
+        next_weekday = weekday_regex.search(itext, pos=weekday.end()+1)
 
-    for row in menu_to_parse.find_all('tr')[1:250]:
-        cols = [col.text.strip() for col in row.find_all('td') if col.text]
+        try: 
+            raw_day_menu = itext[weekday.end()+1:next_weekday.start()-1]
+        except AttributeError:
+            raw_day_menu = itext[weekday.end()+1:]
 
-        for text in cols:
-            if text.isupper():
-                menu_data[text] = [text]
-                current_key = text
-                # current_sub_key = None
-
-            elif text[:2].isdigit():
-                menu_data[int(text[:2])] = menu_data.pop(current_key)
-                current_key = int(text[:2])
-
-            elif text.endswith(':'):
-                continue
-
-            # elif text.endswith(':') or current_sub_key is None:
-            #     menu_data[current_key][text] = []
-            #     current_sub_key = text
-
-            else:
-                menu_data[current_key] += [text]
+        day = re.search(r"^\d{2}", raw_day_menu)
+        removed_date = re.sub(r".*\d.*", "",  raw_day_menu).strip()
+        removed_doublepoints = re.sub(r".*: ", "", removed_date)
+        menu_data[int(day.group())] = (weekday.group()+'\n' + removed_doublepoints).split('\n')
+        
+        itext = itext[weekday.end()+len(raw_day_menu)+1:]
 
     return menu_data
