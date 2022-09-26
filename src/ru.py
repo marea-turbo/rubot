@@ -18,7 +18,7 @@ def format_menu(day_menu: list) -> str:
 
     menu = "*" + day_menu[0] + '*\n'
     for content in day_menu[1:]:
-        menu += "• " + content + '\n'
+        menu += "• " + content.strip() + '\n'
 
     return menu[:-1]
 
@@ -38,14 +38,21 @@ def get_menu(date: datetime) -> str:
     except KeyError:
         week_menu = html.get_menu_dict()
 
-    return format_menu(week_menu[date.day])
-
+    try:
+        return format_menu(week_menu[date.day])
+    except Exception as e:
+        return f"""
+        bruh :( não consegui pegar o cardápio
+        """
 
 def get_today() -> str:
     return get_menu(datetime.now(timezone("Brazil/East")))
 
 def get_tomorrow() -> str:
     return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=1))
+
+def get_next_week() -> str:
+    return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=7))
 
 # debug method
 def get_week() -> str:
