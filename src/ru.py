@@ -10,10 +10,10 @@ week_menu = {}
 
 def format_menu(day_menu: list) -> str:
     """ 
-        ### formato do menu_data:
-        dia: [
+        ### formato do day_menu:
+        [
             DIA-DA-SEMANA, quibe, meu pau, pepino, cebola, ...
-        ], ...
+        ]
     """
 
     menu = "*" + day_menu[0] + '*\n'
@@ -26,8 +26,17 @@ def format_menu(day_menu: list) -> str:
 def get_menu(date: datetime) -> str:
     global week_menu
 
-    if date.day in week_menu.keys(): return format_menu(week_menu[date.day])
-    else: week_menu = html.get_table_dict()
+    """ 
+        ### formato do week_menu:
+        dia: [
+            DIA-DA-SEMANA, quibe, meu pau, pepino, cebola, ...
+        ], ...
+    """
+
+    try:
+        return format_menu(week_menu[date.day])
+    except KeyError:
+        week_menu = html.get_menu_dict()
 
     return format_menu(week_menu[date.day])
 
