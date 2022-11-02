@@ -2,20 +2,25 @@ import src.ru as ru
 import telebot
 import os
 
+
 API_KEY = os.environ.get("TOKEN")
 bot = telebot.TeleBot(API_KEY)
+
 
 @bot.message_handler(commands=["ruh"])
 def ruh(message):
     bot.send_message(message.chat.id, ru.get_today(), parse_mode='Markdown')
 
+
 @bot.message_handler(commands=["amanha"])
 def ruhbot_amanha(message):
     bot.send_message(message.chat.id, ru.get_tomorrow(), parse_mode='Markdown')
 
+
 @bot.message_handler(commands=["semana"])
 def ruhbot_semana(message):
     bot.send_message(message.chat.id, ru.get_week(), parse_mode='Markdown')
+
 
 @bot.message_handler(commands=["about"])
 def info(message):
@@ -45,5 +50,6 @@ def help(message):
     /about Para saber sobre o bot
     """
     bot.send_message(message.chat.id, options)
+
 
 bot.polling()

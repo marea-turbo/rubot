@@ -26,13 +26,6 @@ def format_menu(day_menu: list) -> str:
 def get_menu(date: datetime) -> str:
     global week_menu
 
-    """ 
-        ### formato do week_menu:
-        dia: [
-            DIA-DA-SEMANA, quibe, meu pau, pepino, cebola, ...
-        ], ...
-    """
-
     try:
         return format_menu(week_menu[date.day])
     except KeyError:
@@ -50,9 +43,6 @@ def get_today() -> str:
 
 def get_tomorrow() -> str:
     return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=1))
-
-def get_next_week() -> str:
-    return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=7))
 
 # debug method
 def get_week() -> str:
