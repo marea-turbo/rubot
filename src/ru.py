@@ -29,7 +29,7 @@ def get_menu(date: datetime) -> str:
     try:
         return format_menu(week_menu[date.day])
     except KeyError:
-        week_menu = html.get_menu_dict()
+        week_menu = pdf.get_menu_dict()
 
     try:
         return format_menu(week_menu[date.day])
