@@ -29,7 +29,7 @@ def get_menu(date: datetime) -> str:
     try:
         return format_menu(week_menu[date.day])
     except KeyError:
-        week_menu = html.get_menu_dict()
+        week_menu = html.get_menu_dict(date)
 
     try:
         return format_menu(week_menu[date.day])
@@ -38,11 +38,14 @@ def get_menu(date: datetime) -> str:
         bruh :( não consegui pegar o cardápio
         """
 
+
 def get_today() -> str:
     return get_menu(datetime.now(timezone("Brazil/East")))
 
+
 def get_tomorrow() -> str:
     return get_menu(datetime.now(timezone("Brazil/East"))+timedelta(days=1))
+
 
 # debug method
 def get_week() -> str:

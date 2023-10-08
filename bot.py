@@ -4,6 +4,9 @@ import os
 
 
 API_KEY = os.environ.get("TOKEN")
+if API_KEY is None:
+    raise RuntimeError("token not found or missing")
+
 bot = telebot.TeleBot(API_KEY)
 
 
@@ -32,7 +35,7 @@ def info(message):
 
     Inspirado no @quibebot.
 
-    Codigo: https://github.com/marea-turbo/rubot
+    Repositório: https://github.com/marea-turbo/rubot
     """
     bot.send_message(message.chat.id, info)
 
@@ -52,4 +55,5 @@ def help(message):
     bot.send_message(message.chat.id, options)
 
 
-bot.polling()
+if __name__ == "__main__":
+    bot.polling()
